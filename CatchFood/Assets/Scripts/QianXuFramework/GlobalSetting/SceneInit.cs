@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace QianXuFramework
+namespace QianXuFrameWork
 {
     public class SceneInit : MonoBehaviour
     {
@@ -12,12 +12,6 @@ namespace QianXuFramework
         void Start()
         {
             GameStatus.GAME_STATUS = initialState;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }

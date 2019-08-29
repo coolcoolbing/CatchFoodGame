@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace QianXuFramework
+namespace QianXuFrameWork
 {
     public class MessageConfiguration : MonoBehaviour
     {
         public BaseManager[] hubList;
         public BaseManager[] controllerList;
-        
-        // Start is called before the first frame update
+
         void Awake()
         {
             if (NotificationCenter.ManagerList != null)
@@ -32,10 +31,6 @@ namespace QianXuFramework
                 if (controllerList[i] != null)
                     NotificationCenter.ManagerList.Add(controllerList[i]);
             }
-
-
         }
-
-
     }
 }

@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using QianXuFrameWork;
 
-namespace QianXuFramework
+namespace CatchFood
 {
-    public class StartController : BaseController
+    public class CatchFoodStartController : BaseController
     {
+
+        public StartGameBtnHub startGameBtnHub;
+        public DishesHub dishesHub;  //管理所有菜品的hub
 
         public override void ReceiveMessage(BaseEvent inMessage, BaseManager sender)
         {
@@ -21,13 +25,18 @@ namespace QianXuFramework
             Debug.Log("Init Process:" + this.name);
 
             //DO SOME INIT
-
-
-
+            startGameBtnHub.SetActiveBtn(true);
 
             //JUMP TO MAIN GAME
-            GameStatus.GAME_STATUS = GameStatus.STATUS_GAME_READY;
+            //GameStatus.GAME_STATUS = GameStatus.STATUS_GAME_READY;
+            GameStatus.GAME_STATUS = GameStatus.STATUS_IDLE_LOOP;
+        }
 
+        public override void SelectionProcess()
+        {
+            dishesHub.SetActiveScrollView(true);
+            Debug.Log("SelectionProcess");
+            GameStatus.GAME_STATUS = GameStatus.STATUS_IDLE_LOOP;
         }
 
         public override void IdleLoop()
@@ -46,14 +55,14 @@ namespace QianXuFramework
 
         }
 
-        public override void SelectionProcess()
-        {
-
-        }
-
         public override void SettingProcess()
         {
+            dishesHub.SetActiveScrollView(false);
+            startGameBtnHub.SetActiveBtn(false);
+            startGameBtnHub.startGameBtn.transform.parent.gameObject.SetActive(false);
 
+            Debug.Log("SettingProcess");
+            GameStatus.GAME_STATUS = GameStatus.STATUS_GAME_READY;
         }
     }
 }

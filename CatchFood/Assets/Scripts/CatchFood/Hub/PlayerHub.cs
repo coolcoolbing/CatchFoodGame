@@ -1,25 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using QianXuFrameWork;
 
-public class PlayerHub : MonoBehaviour
+namespace CatchFood
 {
-    public GameObject Player;
-    public int moveSpeed;
-
-    private Transform playerTransform; //直接拿组件，减少性能消耗
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerHub : BaseHub
     {
-        playerTransform = Player.transform;
-    }
+        public GameObject Player;
+        public int moveSpeed;
 
-    /// <summary>
-    /// 控制玩家移动
-    /// </summary>
-    void FixedUpdate()
-    {
-        float h = Input.GetAxis("Horizontal");
-        playerTransform.Translate(new Vector3(h * Time.fixedDeltaTime * moveSpeed, 0, 0));
+        private Transform playerTransform; //直接拿组件，减少性能消耗
+
+        void Start()
+        {
+            playerTransform = Player.transform;
+        }
+
+        public override void PostMessage(BaseEvent outMessage)
+        {
+           NotificationCenter.PostMessage(outMessage,this);
+        }
+        /*
+        /// <summary>
+        /// 控制玩家移动
+        /// </summary>
+        void FixedUpdate()
+        {
+            float h = Input.GetAxis("Horizontal");
+            playerTransform.Translate(new Vector3(h * Time.fixedDeltaTime * moveSpeed, 0, 0));
+        }*/
     }
 }

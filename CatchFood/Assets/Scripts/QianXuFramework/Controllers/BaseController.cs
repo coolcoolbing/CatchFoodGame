@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace QianXuFramework
+namespace QianXuFrameWork
 {
     public class BaseController : BaseManager
     {
