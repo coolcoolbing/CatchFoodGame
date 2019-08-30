@@ -13,18 +13,13 @@ namespace CatchFood
                                      // Start is called before the first frame update
         void Start()
         {
-            Invoke("DestroyThis", 6);
+            Destroy(this.gameObject,8);
         }
 
         // Update is called once per frame
         void FixedUpdate()
         {
             transform.Translate(Vector3.up * -1 * Time.fixedDeltaTime * fallSpeed);
-        }
-
-        void DestroyThis()
-        {
-            Destroy(this.gameObject);
         }
     }
 }

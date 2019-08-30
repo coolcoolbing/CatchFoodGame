@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using QianXuFrameWork;
+using QianXuFramework;
 
 namespace CatchFood
 {
@@ -10,6 +10,7 @@ namespace CatchFood
 
         public StartGameBtnHub startGameBtnHub;
         public DishesHub dishesHub;  //管理所有菜品的hub
+        public PlayMusicHub playMusicHub;
 
         public override void ReceiveMessage(BaseEvent inMessage, BaseManager sender)
         {
@@ -25,7 +26,10 @@ namespace CatchFood
             Debug.Log("Init Process:" + this.name);
 
             //DO SOME INIT
+            startGameBtnHub.startGameBtn.transform.parent.gameObject.SetActive(true);
             startGameBtnHub.SetActiveBtn(true);
+            playMusicHub.StopMusic();
+            playMusicHub.PlayMusic("Start");
 
             //JUMP TO MAIN GAME
             //GameStatus.GAME_STATUS = GameStatus.STATUS_GAME_READY;

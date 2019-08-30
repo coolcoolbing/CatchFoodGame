@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using QianXuFrameWork;
+using QianXuFramework;
 
 namespace CatchFood
 {
@@ -21,14 +21,6 @@ namespace CatchFood
         {
            NotificationCenter.PostMessage(outMessage,this);
         }
-        /*
-        /// <summary>
-        /// 控制玩家移动
-        /// </summary>
-        void FixedUpdate()
-        {
-            float h = Input.GetAxis("Horizontal");
-            playerTransform.Translate(new Vector3(h * Time.fixedDeltaTime * moveSpeed, 0, 0));
-        }*/
+        
     }
 }

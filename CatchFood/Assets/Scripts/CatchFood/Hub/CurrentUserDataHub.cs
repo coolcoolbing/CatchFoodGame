@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using QianXuFrameWork;
+using QianXuFramework;
 
 namespace CatchFood
 {
     public class CurrentUserDataHub : BaseHub
     {
         public GameObject[] gamingGameObejects;  //游戏过程过程中需要的全部元素
-        public static Dish CurrentSelectDish { set; private get; }//记录当前玩家选择的菜品
+        public static Dish CurrentSelectDish { set;  get; }//记录当前玩家选择的菜品
 
         public GameObject currentIngredientNeedUIPrefab; //显示菜品需要的食材的ui
         public Transform showUIParent;  //显示食材的父物体
@@ -47,9 +47,13 @@ namespace CatchFood
                 }
             }
 
-            CurrentSelectDish = null;
-            currentIngredientCount = null;
-            currentIngredientNeedCount=null; //当前配方食材需求的数量
+            foreach (var g in gamingGameObejects)
+            {
+                g.SetActive(false);
+            }
+            //CurrentSelectDish = null;
+            //currentIngredientCount = null;
+            currentIngredientNeedCount =null; //当前配方食材需求的数量
             currentIngredientNeedName = null;
         }
 
@@ -60,7 +64,7 @@ namespace CatchFood
         /// <param name="sender"></param>
         public override void ReceiveMessage(BaseEvent inMessage, BaseManager sender)
         {
-            //print("接住了食物："+ inMessage.msgName);
+            print("接住了食物："+ inMessage.msgName);
             string food = inMessage.msgName;
             if (currentIngredientNeedName.Contains(food))//查找接住的食材是否是需要的食材
             {
@@ -71,10 +75,26 @@ namespace CatchFood
                 if (i < 0) { i = -i;  }//返回的i有时候是负数，不懂为什么
                 if(i>= currentIngredientCount.Length) { return;   }
 
-                currentIngredientCount[i] += 1;
 
-                //刷新显示当前的食材数量
-                ShowIngredientsCurrent();
+                currentIngredientCount[i] ++;
+
+                IsEnough(i);
+
+                //刷新显示接住的食材数量
+                UpdateShowIngredientsCurrent(i); // 更新显示接住的食材的数量
+            }
+        }
+
+        /// <summary>
+        /// 获得食材是否足够了，达到需求了，则文本变色
+        /// </summary>
+        private void IsEnough(int i)
+        {
+            if (currentIngredientCount[i]>=currentIngredientNeedCount[i]){
+                if (currentIngredientText[i].color != Color.green)
+                {
+                    currentIngredientText[i].color = Color.green;
+                }
             }
         }
 
@@ -104,15 +124,23 @@ namespace CatchFood
                     currentIngredientText[i] = g.transform.GetComponentInChildren<Text>();
                 }
 
-                //初始化显示当前食材数量情况
                 ShowIngredientsCurrent();
             }
         }
 
         /// <summary>
-        /// 显示当前食材的数量
+        /// 更新显示接住的食材的文本
         /// </summary>
-        public void ShowIngredientsCurrent()
+        /// <param name="i">接住的食材所在的数组的索引</param>
+        private void UpdateShowIngredientsCurrent(int i)
+        {
+           currentIngredientText[i].text = currentIngredientCount[i] + "/" + currentIngredientNeedCount[i];
+        }
+
+        /// <summary>
+        /// 初始化显示当前食材的数量
+        /// </summary>
+        private void ShowIngredientsCurrent()
         {
             for(int i=0;i<currentIngredientText.Length;i++)
             {

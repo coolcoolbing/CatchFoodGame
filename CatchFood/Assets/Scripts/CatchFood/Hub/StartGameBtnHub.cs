@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using QianXuFrameWork;
+using QianXuFramework;
 
 namespace CatchFood
 {

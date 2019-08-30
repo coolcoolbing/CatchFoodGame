@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace QianXuFrameWork
+namespace QianXuFramework
 {
     public class NotificationCenter
     {

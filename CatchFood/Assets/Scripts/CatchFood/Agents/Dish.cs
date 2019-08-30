@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using QianXuFrameWork;
+using QianXuFramework;
 
 namespace CatchFood
 {
@@ -24,11 +24,15 @@ namespace CatchFood
         [Tooltip("制作这个菜品的星级难度")]
         [Range(0, 5)] public int star;
 
+        [Tooltip("菜品的历史")]
+        public string dishHistory;
         public string[] IngredientsNeedName { get; private set; }  //对外开放的需要的食材的名字
         public GameObject FormulaPanel { private get; set; }  //该菜品对应的配方面板
-                                                              /// <summary>
-                                                              /// 初始化菜品的各项参数，提供给DishesHub调用
-                                                              /// </summary>
+
+        public Sprite DishImage { get; private set; }  //菜品的图片
+        /// <summary>
+        /// 初始化菜品的各项参数，提供给DishesHub调用
+        /// </summary>
         public void InitializeDish()
         {
             InitializeDishName();
@@ -37,7 +41,7 @@ namespace CatchFood
         }
 
         /// <summary>
-        /// 根据传入菜品的图片的初始化这道菜的名字
+        /// 根据传入菜品的图片的初始化这道菜的名字和图片
         /// </summary>
         void InitializeDishName()
         {
@@ -47,6 +51,7 @@ namespace CatchFood
             {
                 dishName = s.name;  //获得图片的名字
                 this.name = s.name;
+                DishImage = s;
             }
         }
 
